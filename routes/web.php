@@ -14,18 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//rotte pubbliche (ci si può accedere senza essere loggati)
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//tutte le rotte protette da autenticazione (NON ci si può accedere senza essere loggati)
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    //per ora commento queste rotte perchè non mi devo ancora occupare della gestione del profilo
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
 
+//tutte le rotte di autenticazione(registrazione, login, ecc...)
 require __DIR__.'/auth.php';

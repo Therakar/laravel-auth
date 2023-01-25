@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/admin/dashboard'; //serve a fare il redirect automatico dopo il login
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
