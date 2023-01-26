@@ -11,8 +11,8 @@
                 <p class="card-text"><strong>Version:</strong> v{{$project->version}}</p>
                 <p class="card-text"><strong>Description:</strong> {{$project->description}}</p>
                 <div>
-                    <a href="" class="btn btn-warning">Edit</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+                    <a href="" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
+                    <a href="" class="btn btn-danger"><i class="fa-solid fa-skull"></i></a>
                 </div>
             </div>
 
