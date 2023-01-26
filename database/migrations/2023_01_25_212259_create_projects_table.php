@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title', 150)->unique();
             $table->text('description');
             $table->string('version', 50);
-            $table->string('author', 500);
+            $table->string('customer', 500);
             $table->string('slug');
             $table->timestamps();
         });

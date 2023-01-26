@@ -18,7 +18,7 @@
                 <tr>
                     <td>{{$project->id}}</td>
                     <td>{{$project->title}}</td>
-                    <td>{{$project->author}}</td>
+                    <td>{{$project->customer}}</td>
                     <td>{{$project->version}}</td>
                     <td>{{$project->slug}}</td>
                     <td></td>
@@ -30,11 +30,10 @@
     @foreach ($projects as $project)
         <div class="card mb-3">
             <div class="card-header">
-                Featured
+                <h5>{{$project->title}}</h5>
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{$project->title}}</h5>
-                <p class="card-text"><strong>Author:</strong> {{$project->author}}</p>
+                <p class="card-text"><strong>Customer:</strong> {{$project->customer}}</p>
                 <p class="card-text"><strong>Version:</strong> v{{$project->version}}</p>
                 <p class="card-text"><strong>Slug:</strong> {{$project->slug}}</p>
                 <a href="#" class="btn btn-primary">Info</a>
