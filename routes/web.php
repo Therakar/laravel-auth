@@ -26,8 +26,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
-
-    Route::resource('projects', ProjectController::class); //crea tutte le rotte CRUD per la risorsa 'projects' 
+    //crea tutte le rotte CRUD per la risorsa 'projects' 
+    Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']); 
 
     //per ora commento queste rotte perchè non mi devo ancora occupare della gestione del profilo
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

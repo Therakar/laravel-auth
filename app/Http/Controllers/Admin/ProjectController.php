@@ -47,9 +47,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(string $slug) //visto che stousando lo slug non posso usare la dipendencies injection (Project $project), invece mi faccio passare la stringa $slug
+    public function show(Project $project) //(string $slug)--> visto che sto usando lo slug non posso usare la dipendencies injection (Project $project), invece mi faccio passare la stringa $slug
     {
-        $project = Project::where('slug', $slug)->first(); //tramite il modello Project faccio una query "dove slug è uguale a $slug e seleziona il first (il primo record)"
+        // $project = Project::where('slug', $slug)->first(); //tramite il modello Project faccio una query "dove slug è uguale a $slug e seleziona il first (il primo record)"
         return view('admin.projects.show', compact('project'));
     }
 
