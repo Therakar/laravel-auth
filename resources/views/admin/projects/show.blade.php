@@ -16,8 +16,14 @@
                 <p class="card-text"><strong>Version:</strong> v{{$project->version}}</p>
                 <p class="card-text"><strong>Description:</strong> {{$project->description}}</p>
                 <div>
-                    <a href="" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
-                    <a href="" class="btn btn-danger"><i class="fa-solid fa-skull"></i></a>
+                    <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{route('admin.projects.destroy', $project->slug)}}" class="d-inline-block" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger ">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
 

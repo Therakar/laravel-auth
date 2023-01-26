@@ -79,7 +79,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -91,7 +91,16 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+         //prendo i dati
+         $data = $request->validated();
+
+         $old_title = $project->title;
+         $project->slug = Str::slug($data['title']);
+         //faccio l'update con il mass assignment
+         $project->update($data);
+ 
+         //faccio un redirect a comics.show della risorsa aggiornata
+         return redirect()->route('admin.projects.show', $project->slug)->with('message', "$old_title has been modified!");
     }
 
     /**
@@ -102,6 +111,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        ///cancello l'elemento
+        $project->delete();
+
+        //faccio un redirect a admin.projects.index
+        return redirect()->route('admin.projects.index', $project->slug)->with('message', "$project->title has been deleted!");
     }
+    
 }
