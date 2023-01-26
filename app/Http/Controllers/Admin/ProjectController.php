@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 class ProjectController extends Controller
 {
     /**
@@ -38,7 +39,24 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request);
+        //prendo tutti i dati
+        $data = $request->validated();
+
+        //creo l'oggetto model | posso copiare questa parte dal seeder
+        $new_project = new Project();
+
+        //compilo l'oggetto (o meglio le sue proprietà) | posso copiare questa parte dal seeder ma al posto di $comic metto $data 
+        $new_project->fill($data); //mass assignment
+
+        $new_project->slug= Str::slug($new_project->title);
+        //salvo (creo a db la riga)
+        $new_project ->save(); //a questo punto l'autoincrement del db assegna l'id al nuovo elemento
+
+        //dove reindirizzo l'utente una volta che crea l'elemento? --> magari all'index o allo show in modo che possa vedere l'elemento appena creato
+         
+        //redirect a show
+        return redirect()->route('admin.projects.show', $new_project->slug)->with('message', 'Project created!');
+
     }
 
     /**

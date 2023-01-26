@@ -12,7 +12,7 @@
                 </ul>
             </div> 
         @endif 
-        <form class="mb-5">
+        <form action="{{route('admin.projects.store')}}" method="POST" class="mb-5">
         @csrf
             <div class="mb-3">
                <label for="title" class="form-label">Title*</label>
