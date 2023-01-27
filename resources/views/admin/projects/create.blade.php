@@ -12,7 +12,7 @@
                 </ul>
             </div> 
         @endif 
-        <form action="{{route('admin.projects.store')}}" method="POST" enctype="multipart/form-data" class="mb-5">
+        <form action="{{route('admin.projects.store')}}" method="POST" enctype="multipart/form-data" class="mb-5"> {{-- se non usassi l'enctype mi verrebbe restituito solo il nome dell'immagine --}}
         @csrf
             <div class="mb-3">
                <label for="title" class="form-label">Title*</label>
