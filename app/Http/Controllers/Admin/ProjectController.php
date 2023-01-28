@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 class ProjectController extends Controller
@@ -42,6 +43,9 @@ class ProjectController extends Controller
         //prendo tutti i dati
         $data = $request->validated();
 
+        //upload immagini
+        $img_path = Storage::disk('public')->put('uploads', $data['cover_image']);
+
         //creo l'oggetto model | posso copiare questa parte dal seeder
         $new_project = new Project();
 
@@ -49,6 +53,10 @@ class ProjectController extends Controller
         $new_project->fill($data); //mass assignment
 
         $new_project->slug= Str::slug($new_project->title);
+
+        //salvo il path dell'immagine a db
+        $new_project->cover_image = $img_path;
+
         //salvo (creo a db la riga)
         $new_project ->save(); //a questo punto l'autoincrement del db assegna l'id al nuovo elemento
 

@@ -1,24 +1,37 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container mt-5">
+
         <h1>Projects List</h1>
+
         @if (session('message'))
             <div class="alert alert-success mt-3">
                 {{session('message')}}
             </div>
         @endif
         <a href="{{route('admin.projects.create')}}" class="btn btn-success mt-5 mb-3"><i class="fa-solid fa-plus md-1"></i> New Project</a>
-        @foreach ($projects as $project)
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h5>{{$project->title}}</h5>
-                </div>
+        <div class="custom-container d-flex flex-wrap">
+        
+            @foreach ($projects as $project)
+                <div class="card col-4 ms-5 mb-5 d-flex" style="width: 20%;">
+                    <div>
+                        @if ($project->cover_image)
+                            <img class="card-img-top" src="{{asset('storage/' . $project->cover_image)}}" alt="{{$project->title}}"> 
+                            {{-- oppure <img src="{{asset("storage/$project->cover_image")}}" alt="{{$project->title}}">  --}}
+                        @else
+                            <img class="card-img-top" src="http://via.placeholder.com/640x420" alt="{{$project->title}}">
+                        @endif
+                    </div>
                 <div class="card-body">
+                    
+                    <h5 class="card-title">{{$project->title}}</h5>
+                    
                     <p class="card-text"><strong>Customer:</strong> {{$project->customer}}</p>
                     <p class="card-text"><strong>Version:</strong> v{{$project->version}}</p>
                     <p class="card-text"><strong>Slug:</strong> {{$project->slug}}</p>
-                    <div>
+
+                    {{-- BUTTONS --}}
+                    <div class="align-self-end">
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a> {{-- uso $project->slug al posto di $project->id in modo da usare lo slug al posto dell'id --}}
                         <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
                         
@@ -59,5 +72,15 @@
             </div>
             
         @endforeach
-    </div>
+        </div>
 @endsection
+
+{{-- <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+  
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div> --}}
