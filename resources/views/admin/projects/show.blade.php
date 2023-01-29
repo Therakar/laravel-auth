@@ -15,7 +15,7 @@
                         <img class="card-img-top w-25" src="{{asset('storage/' . $project->cover_image)}}" alt="{{$project->title}}"> 
                         {{-- oppure <img src="{{asset("storage/$project->cover_image")}}" alt="{{$project->title}}">  --}}
                     @else
-                        <img class="card-img-top w-25" src="http://via.placeholder.com/640x420" alt="{{$project->title}}">
+                        <img class="card-img-top w-25" src="{{ Vite::asset('resources/img/placeholder.png') }}" alt="{{$project->title}}">
                     @endif
                 </div>
             <div class="card-body">
