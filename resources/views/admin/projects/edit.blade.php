@@ -12,7 +12,7 @@
                 </ul>
             </div> 
         @endif 
-        <form action="{{route('admin.projects.update', $project->slug)}}" method="POST" class="mb-5">
+        <form action="{{route('admin.projects.update', $project->slug)}}" method="POST" enctype="multipart/form-data" class="mb-5">
         @csrf
         @method('PUT')
             <div class="mb-3">
@@ -32,7 +32,7 @@
 
                 {{-- image preview --}}
                 <div>
-                    <img id="output" width="100" class="mb-2"  src="{{asset("storage/$project->cover_image")}}"/>
+                    <img id="output" width="100" class="mb-2" src="{{asset("storage/$project->cover_image")}}"/>
                     <script>
                         var loadFile = function(event) {
                             var reader = new FileReader();

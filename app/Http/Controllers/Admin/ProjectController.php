@@ -105,6 +105,12 @@ class ProjectController extends Controller
 
          $old_title = $project->title;
          $project->slug = Str::slug($data['title']);
+
+         if($data['cover_image']) {
+            //salvo il path dell'immagine a db
+            $data['cover_image'] = Storage::disk('public')->put('uploads', $data['cover_image']);
+        };
+
          //faccio l'update con il mass assignment
          $project->update($data);
  
