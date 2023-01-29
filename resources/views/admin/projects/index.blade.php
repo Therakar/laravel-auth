@@ -36,7 +36,7 @@
                     <p class="card-text"><strong>Slug:</strong> {{$project->slug}}</p>
 
                     {{-- BUTTONS --}}
-                    <div class="align-self-end">
+                    <div>
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a> {{-- uso $project->slug al posto di $project->id in modo da usare lo slug al posto dell'id --}}
                         <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
                         

@@ -100,22 +100,26 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-         //prendo i dati
-         $data = $request->validated();
+        //prendo i dati
+        $data = $request->validated();
 
-         $old_title = $project->title;
-         $project->slug = Str::slug($data['title']);
+        $old_title = $project->title;
+        $project->slug = Str::slug($data['title']);
 
-         if($data['cover_image']) {
-            //salvo il path dell'immagine a db
-            $data['cover_image'] = Storage::disk('public')->put('uploads', $data['cover_image']);
-        };
-
-         //faccio l'update con il mass assignment
-         $project->update($data);
+        if ( isset($data['cover_image'])){
  
-         //faccio un redirect a comics.show della risorsa aggiornata
-         return redirect()->route('admin.projects.show', $project->slug)->with('message', "$old_title has been modified!");
+            if($data['cover_image']) {
+                //salvo il path dell'immagine a db
+               Storage::disk('public')->delete($project->cover_image);
+            }
+            $data['cover_image'] = Storage::disk('public')->put('uploads', $data['cover_image']);
+        }
+        
+        //faccio l'update con il mass assignment
+        $project->update($data);
+ 
+        //faccio un redirect a comics.show della risorsa aggiornata
+        return redirect()->route('admin.projects.show', $project->slug)->with('message', "$old_title has been modified!");
     }
 
     /**
@@ -126,6 +130,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if($project->cover_image){
+            Storage::disk('public')->delete($project->cover_image);
+        }
+
         ///cancello l'elemento
         $project->delete();
 
