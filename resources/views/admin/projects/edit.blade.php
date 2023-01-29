@@ -28,6 +28,26 @@
                 <input type="text" class="form-control" id="version" name="version" placeholder="What's your project version?" value="{{old('version', $project->version)}}">
             </div>
             <div class="mb-3">
+                <label for="cover_image" class="form-label">Cover image*</label>
+
+                {{-- image preview --}}
+                <div>
+                    <img id="output" width="100" class="mb-2"  src="{{asset("storage/$project->cover_image")}}"/>
+                    <script>
+                        var loadFile = function(event) {
+                            var reader = new FileReader();
+                            reader.onload = function(){
+                            var output = document.getElementById('output');
+                            output.src = reader.result;
+                            };
+                            reader.readAsDataURL(event.target.files[0]);
+                        };
+                    </script>
+                </div>
+
+                <input type="file" class="form-control" id="cover_image" name="cover_image" value="{{old('cover_image')}}" onchange="loadFile(event)">
+            </div>
+            <div class="mb-3">
                 <label for="description" class="form-label">Description*</label>
                 <textarea class="form-control" id="description" name="description" rows="10" placeholder="Describe your project...">{{old('description', $project->description)}}</textarea>
             </div>

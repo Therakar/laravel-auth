@@ -1,15 +1,20 @@
 @extends('layouts.admin')
 
 @section('content')
+        <div class="custom-container ms-5 mt-4">
+            <h1>Projects List</h1>
 
-        <h1>Projects List</h1>
+            @if (session('message'))
+                <div class="alert alert-success mt-3">
+                    {{session('message')}}
+                </div>
+            @endif
 
-        @if (session('message'))
-            <div class="alert alert-success mt-3">
-                {{session('message')}}
-            </div>
-        @endif
-        <a href="{{route('admin.projects.create')}}" class="btn btn-success mt-5 mb-3"><i class="fa-solid fa-plus md-1"></i> New Project</a>
+            {{-- NEW PROJECT BUTTON --}}
+            <a href="{{route('admin.projects.create')}}" class="btn btn-success mt-5 mb-3"><i class="fa-solid fa-plus md-1"></i> New Project</a>
+        </div>
+        
+
         <div class="custom-container d-flex flex-wrap">
         
             @foreach ($projects as $project)

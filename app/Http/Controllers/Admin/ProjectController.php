@@ -43,9 +43,6 @@ class ProjectController extends Controller
         //prendo tutti i dati
         $data = $request->validated();
 
-        //upload immagini
-        $img_path = Storage::disk('public')->put('uploads', $data['cover_image']);
-
         //creo l'oggetto model | posso copiare questa parte dal seeder
         $new_project = new Project();
 
@@ -54,13 +51,17 @@ class ProjectController extends Controller
 
         $new_project->slug= Str::slug($new_project->title);
 
-        //salvo il path dell'immagine a db
-        $new_project->cover_image = $img_path;
-
+        //upload immagini
+        if($data['cover_image']) {
+            //salvo il path dell'immagine a db
+            $new_project->cover_image = Storage::disk('public')->put('uploads', $data['cover_image']);
+        };
+         
         //salvo (creo a db la riga)
         $new_project ->save(); //a questo punto l'autoincrement del db assegna l'id al nuovo elemento
 
-        //dove reindirizzo l'utente una volta che crea l'elemento? --> magari all'index o allo show in modo che possa vedere l'elemento appena creato
+        //dove reindirizzo l'utente una volta che crea l'elemento? --> 
+        //magari all'index o allo show in modo che possa vedere l'elemento appena creato
          
         //redirect a show
         return redirect()->route('admin.projects.show', $new_project->slug)->with('message', 'Project created!');

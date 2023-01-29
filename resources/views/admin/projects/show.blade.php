@@ -7,11 +7,19 @@
                 {{session('message')}}
             </div>
         @endif
-        <div class="card mt-5 mb-3">
-            <div class="card-header">
-                <h5>{{$project->title}}</h5>
-            </div>
+        <div class="mt-5 mb-3">
+            
+            
+                <div>
+                    @if ($project->cover_image)
+                        <img class="card-img-top w-25" src="{{asset('storage/' . $project->cover_image)}}" alt="{{$project->title}}"> 
+                        {{-- oppure <img src="{{asset("storage/$project->cover_image")}}" alt="{{$project->title}}">  --}}
+                    @else
+                        <img class="card-img-top w-25" src="http://via.placeholder.com/640x420" alt="{{$project->title}}">
+                    @endif
+                </div>
             <div class="card-body">
+                <h5>{{$project->title}}</h5>
                 <p class="card-text"><strong>Customer:</strong> {{$project->customer}}</p>
                 <p class="card-text"><strong>Version:</strong> v{{$project->version}}</p>
                 <p class="card-text"><strong>Description:</strong> {{$project->description}}</p>
