@@ -52,7 +52,7 @@ class ProjectController extends Controller
         $new_project->slug= Str::slug($new_project->title);
 
         //upload immagini
-        if($data['cover_image']) {
+        if(isset($data['cover_image'])) {
             //salvo il path dell'immagine a db
             $new_project->cover_image = Storage::disk('public')->put('uploads', $data['cover_image']);
         };
@@ -104,11 +104,12 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         $old_title = $project->title;
+
         $project->slug = Str::slug($data['title']);
 
         if ( isset($data['cover_image'])){
  
-            if($data['cover_image']) {
+            if($project->cover_image) {
                 //salvo il path dell'immagine a db
                Storage::disk('public')->delete($project->cover_image);
             }
